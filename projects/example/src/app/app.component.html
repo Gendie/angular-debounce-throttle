@@ -1,0 +1,15 @@
+<hr>
+Deboucing Example: Enter text in the seach box
+<hr>
+<div>
+    <input type="search" name="search" placeholder="search" [(ngModel)]="searchText" (ngModelChange)="search($event)">
+</div>
+Searching: {{latestSearchText}}
+
+<hr>
+Throttling Example: Move the mouse inside the box
+<hr>
+<div class="hover-box" (mousemove)="mouseMove($event)">
+</div>
+<p>Position X: {{posX}}, Y: {{posY}}</p>
+<hr>
