@@ -1,27 +1,76 @@
 # AngularDebounceThrottle
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.10.
+This package provides you with easy to use Throttling and Debouncing functionalities using decorators.
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+npm install angular-debounce-throttle --save
+```
 
-## Code scaffolding
+## Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Throttle
 
-## Build
+```javascript
+import { Throttle } from 'angular-debounce-throttle';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+@Throttle(250)
+public onScroll() {
+    // Do scroll logic here
+}
+```
 
-## Running unit tests
+However the number of times you call the `onScroll` function it will excute only **maximum one time each 250 milliseconds**.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Debounce
 
-## Running end-to-end tests
+```javascript
+import { Debounce } from 'angular-debounce-throttle';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+@Debounce(500)
+public search() {
+    // Do search logic here
+}
+```
 
-## Further help
+However the number of times you call the `search` function it will excute only **after you stop calling it by 500 milliseconds**.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```javascript
+import { Debounce } from 'angular-debounce-throttle';
+
+@Debounce(500, true)
+public search() {
+    // Do search logic here
+}
+```
+
+For this example the first time you call the `search` function it will excute then debounce the rest of calls.
+
+## API
+
+### @Throttle(delay)
+
+Throttle execution of a function. Especially useful for rate limiting execution of handlers on events like resize and scroll.
+
+#### delay
+
+Type: `Number`
+
+A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+
+### @Debounce(delay, takeFirst)
+
+Debounce execution of a function. Debouncing, unlike throttling, guarantees that a function is only executed a single time, either at the very beginning of a series of calls, or at the very end.
+
+#### delay
+
+Type: `Number`
+
+A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+
+#### takeFirst
+
+Type: `Number`
+
+Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed delay milliseconds after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call. (After the throttled-function has not been called for delay milliseconds, the internal counter is reset).
