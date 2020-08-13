@@ -5,12 +5,19 @@
     "@angular/common": "^9.1.12",
     "@angular/core": "^9.1.12"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gendie/angular-debounce-throttle.git"
+  },
   "keywords": [
     "angular",
     "debounce",
     "throttle"
   ],
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gendie/angular-debounce-throttle/issues"
+  },
   "author": "Gendy <mohammad.algendy.me@gmail.com>",
   "dependencies": {
     "tslib": "^1.10.0"
