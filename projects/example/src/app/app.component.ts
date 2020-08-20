@@ -20,7 +20,7 @@ export class AppComponent {
     this.latestSearchText = value;
   }
   
-  @Throttle(-50)
+  @Throttle(500)
   public mouseMove(e: MouseEvent) {
     const target = e.target as HTMLDivElement;
     this.posX = e.clientX - target.offsetLeft;

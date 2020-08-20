@@ -1,10 +1,10 @@
 /**
  * Limiting the function calls to be one call over a set amount of time (milliseconds).
- * @param {number} limit - The duration between function calls in Milliseconds.
- * @param {takeFirst} limit - Excute the first call immediately then debound.
+ * @param {number} delay - The duration between function calls in Milliseconds.
+ * @param {boolean} atBegin - Excute the first call immediately then debounce. Default is false.
  */
-export function Debounce(interval: number, takeFirst?: boolean) {
-    if(interval < 0) {
+export function Debounce(delay: number, atBegin: boolean = false) {
+    if(delay < 0) {
         console.warn('Limit should be zero or greater');
     }
     let timeout;
@@ -13,11 +13,11 @@ export function Debounce(interval: number, takeFirst?: boolean) {
         let inProgress = false;
 
         descriptor.value = function (...args) {
-            if (takeFirst && !inProgress) {
+            if (atBegin && !inProgress) {
                 inProgress = true;
                 timeout = setTimeout(() => {
                     inProgress = false;
-                }, interval)
+                }, delay)
                 return source.call(this, ...args);
             }
             clearTimeout(timeout);
@@ -25,7 +25,7 @@ export function Debounce(interval: number, takeFirst?: boolean) {
             timeout = setTimeout(() => {
                 inProgress = false;
                 return source.call(this, ...args)
-            }, interval)
+            }, delay)
         }
     }
 }

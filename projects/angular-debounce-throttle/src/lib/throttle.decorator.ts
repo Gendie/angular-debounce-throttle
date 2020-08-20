@@ -12,7 +12,7 @@ export function Throttle(delay: number) {
         const source = descriptor.value;
         
         descriptor.value = function(...args) {
-            if(!lastTrigger) {
+            if(!lastTrigger || delay - (Date.now() - lastTrigger) <= 0) {
                 source.call(this, ...args);
                 lastTrigger = Date.now();
             } else {
